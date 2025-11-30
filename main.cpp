@@ -100,5 +100,46 @@ void query(const AABB &range, vector<Particle*> &found) {
     }
 };
 
+void resolveCollision(Particle &a, Particle &b) {
+    float dx = b.x - a.x;
+    float dy = b.y - a.y;
+    float dist = sqrt(dx*dx + dy*dy);
+
+    if (dist == 0) return;
+
+    if (dist < a.r + b.r) {
+        // Normalisasi normal vector
+        float nx = dx / dist;
+        float ny = dy / dist;
+
+        // Relative velocity
+        float tx = -ny;
+        float ty = nx;
+
+        float v1n = a.vx * nx + a.vy * ny;
+        float v1t = a.vx * tx + a.vy * ty;
+        float v2n = b.vx * nx + b.vy * ny;
+        float v2t = b.vx * tx + b.vy * ty;
+
+        // Swap normal velocities (massa sama)
+        float temp = v1n;
+        v1n = v2n;
+        v2n = temp;
+
+        // balik ke koordinat XY
+        a.vx = v1n * nx + v1t * tx;
+        a.vy = v1n * ny + v1t * ty;
+        b.vx = v2n * nx + v2t * tx;
+        b.vy = v2n * ny + v2t * ty;
+
+        //partikel supaya ngga overlap
+        float overlap = (a.r + b.r - dist) / 2;
+        a.x -= overlap * nx;
+        a.y -= overlap * ny;
+        b.x += overlap * nx;
+        b.y += overlap * ny;
+    }
+}
+
 int main() {
     int width = 900, height = 700;
