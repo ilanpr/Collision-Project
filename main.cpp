@@ -140,7 +140,7 @@ void resolveCollision(Particle &a, Particle &b) {
 
 int main() {
     int width = 900, height = 700;
-    initwindow(width, height,);
+    initwindow(width, height, "Project Collision");
 
     int n;
     cout << "Jumlah Partikel: ";
