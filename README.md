@@ -29,12 +29,11 @@ Struktur Program Singkat:
 2. AABB → bounding box untuk QuadTree
 3. QuadTree → bagi layar jadi 4 bagian, simpan partikel sesuai region
 4. resolveCollision() → hitung tumbukan antar partikel
-
-main loop:
-1. update posisi
-2. cek tabrakan (bruteforce atau quad)
-3. render
-4. swap buffer
+5. main loop:
+   update posisi
+   cek tabrakan (bruteforce atau quad)
+   render
+   swap buffer
 
 Kenapa Pakai QuadTree?
 Kalau jumlah partikel makin banyak, metode bruteforce bakal jadi berat karena harus ngecek satu-satu:
