@@ -132,7 +132,7 @@ void resolveCollision(Particle &a, Particle &b) {
         b.vx = v2n * nx + v2t * tx;
         b.vy = v2n * ny + v2t * ty;
 
-        //partikel supaya ngga overlap
+        //partikel supaya ngga lengket satu sama lain
         float overlap = (a.r + b.r - dist) / 2;
         a.x -= overlap * nx;
         a.y -= overlap * ny;
