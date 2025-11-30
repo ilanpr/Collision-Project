@@ -74,3 +74,31 @@ struct QuadTree {
 
         return false;
     }
+void query(const AABB &range, vector<Particle*> &found) {
+        if (!boundary.intersects(range)) return;
+
+        for (auto *p : particles)
+            if (range.contains(p))
+                found.push_back(p);
+
+        if (divided) {
+            nw->query(range, found);
+            ne->query(range, found);
+            sw->query(range, found);
+            se->query(range, found);
+        }
+    }
+
+    void draw() {
+        rectangle(boundary.x-boundary.w, boundary.y-boundary.h,
+                  boundary.x+boundary.w, boundary.y+boundary.h);
+
+        if (divided) {
+            nw->draw(); ne->draw();
+            sw->draw(); se->draw();
+        }
+    }
+};
+
+int main() {
+    int width = 900, height = 700;
