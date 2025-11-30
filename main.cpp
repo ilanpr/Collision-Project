@@ -143,3 +143,84 @@ void resolveCollision(Particle &a, Particle &b) {
 
 int main() {
     int width = 900, height = 700;
+    initwindow(width, height,);
+
+    int n;
+    cout << "Jumlah Partikel: ";
+    cin >> n;
+
+    vector<Particle> P;
+    for (int i = 0; i < n; i++)
+        P.emplace_back(rand()%width, rand()%height, 8);
+
+    bool useQuad = true;
+    bool showTree = true;
+
+    int page = 0;
+
+    while (true) {
+        setactivepage(page);
+        setvisualpage(1 - page);
+        cleardevice();
+
+        // update posisi
+        for (auto &p : P) {
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x < p.r || p.x > width - p.r) p.vx *= -1;
+            if (p.y < p.r || p.y > height - p.r) p.vy *= -1;
+        }
+
+        // collision
+        if (!useQuad) {
+            for (int i=0;i<n;i++)
+                for (int j=i+1;j<n;j++)
+                    resolveCollision(P[i], P[j]);
+        }
+        else {
+            QuadTree qt({width/2, height/2, width/2, height/2});
+
+            for (auto &p : P)
+                qt.insert(&p);
+
+            for (auto &p : P) {
+                AABB range = {p.x, p.y, 40, 40};
+                vector<Particle*> cand;
+                qt.query(range, cand);
+
+                for (auto *o : cand)
+                    if (&p != o)
+                        resolveCollision(p, *o);
+            }
+
+            if (showTree) qt.draw();
+        }
+
+        // gambar particle
+        for (auto &p : P) {
+            setcolor(WHITE);
+            circle(p.x, p.y, p.r);
+
+            setfillstyle(SOLID_FILL, WHITE);
+            floodfill(p.x, p.y, WHITE);
+        }
+
+        setcolor(YELLOW);
+        outtextxy(10, 10, useQuad ? (char*)"Mode: QUADTREE" : (char*)"Mode: BRUTEFORCE");
+
+        // input
+        if (kbhit()) {
+            char c = getch();
+            if (c=='q') useQuad = true;
+            if (c=='b') useQuad = false;
+            if (c=='t') showTree = !showTree;
+        }
+
+        page = 1 - page;
+        delay(10);
+    }
+
+    closegraph();
+    return 0;
+}
