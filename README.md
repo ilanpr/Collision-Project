@@ -9,7 +9,7 @@ Fitur Utama:
 1. Gerakan partikel bebas dengan bouncing di tepi layar
 2. Tabrakan antar partikel pakai rumus fisika beneran (elastic collision)
 3. Dua mode perhitungan tabrakan:
-   Brute Force – wajibnya O(N²)
+   Brute Force – wajibnya O(N²),
    QuadTree – spatial partitioning
 
 4. Toggle mode langsung dari keyboard
@@ -30,9 +30,9 @@ Struktur Program Singkat:
 3. QuadTree → bagi layar jadi 4 bagian, simpan partikel sesuai region
 4. resolveCollision() → hitung tumbukan antar partikel
 5. main loop:
-   update posisi
-   cek tabrakan (bruteforce atau quad)
-   render
+   update posisi,
+   cek tabrakan (bruteforce atau quad),
+   render,
    swap buffer
 
 Kenapa Pakai QuadTree?
