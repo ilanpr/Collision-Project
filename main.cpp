@@ -121,18 +121,15 @@ void resolveCollision(Particle &a, Particle &b) {
         float v2n = b.vx * nx + b.vy * ny;
         float v2t = b.vx * tx + b.vy * ty;
 
-        // Swap normal velocities (massa sama)
         float temp = v1n;
         v1n = v2n;
         v2n = temp;
-
-        // balik ke koordinat XY
+        
         a.vx = v1n * nx + v1t * tx;
         a.vy = v1n * ny + v1t * ty;
         b.vx = v2n * nx + v2t * tx;
         b.vy = v2n * ny + v2t * ty;
-
-        //partikel supaya ngga lengket satu sama lain
+        
         float overlap = (a.r + b.r - dist) / 2;
         a.x -= overlap * nx;
         a.y -= overlap * ny;
