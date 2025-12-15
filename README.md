@@ -39,5 +39,12 @@ Kenapa Pakai QuadTree?
 Kalau jumlah partikel makin banyak, metode bruteforce bakal jadi berat karena harus ngecek satu-satu:
 N x N pengecekan.
 
+Simulasi Quadtree
+<img width="1135" height="909" alt="image" src="https://github.com/user-attachments/assets/430a5f5d-fe97-419a-9b33-4b75c140f303" />
+https://github.com/user-attachments/assets/9e18a92d-c0f3-4823-a39f-52e83f57be6d
+
+Simulasi Bruteforce
+<img width="1129" height="910" alt="Image" src="https://github.com/user-attachments/assets/4f7f84aa-dfdc-456b-889d-afbdab728e24" />
+https://github.com/user-attachments/assets/bf0f6dcb-af70-4a24-bd05-9cc6f9d92eb3
 Dengan QuadTree, program cuma ngecek partikel yang deket-deket aja, bukan seluruh layar.
 Hasilnya, fps tetap stabil meskipun partikel banyak.
